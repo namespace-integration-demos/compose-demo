@@ -1,0 +1,25 @@
+# From https://docs.docker.com/compose/gettingstarted/
+version: "3.9"
+services:
+  localstack:
+    image: localstack/localstack
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    ports:
+      - "127.0.0.1:4566:4566"
+      - "127.0.0.1:4510-4559:4510-4559"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+  backend:
+    build: ./backend
+    environment:
+      - AWS_ACCESS_KEY_ID=fake
+      - AWS_SECRET_KEY=fake
+      - LOCALSTACK_ENDPOINT=http://localstack:4566
+      - BUCKET=testb
+      - LISTEN_ADDR=0.0.0.0:9000
+    ports:
+      - 9000:9000
+    depends_on:
+      - localstack
+
