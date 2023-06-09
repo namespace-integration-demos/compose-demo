@@ -1,6 +1,6 @@
 nsc docker login --output_registry_to /tmp/registry
 REGISTRY=`cat /tmp/registry`
-nsc create --bare --cidfile /tmp/cid --duration 5m
+nsc create --bare --cidfile /tmp/cid
 CLUSTER_ID=`cat /tmp/cid`
 nsc docker remote $CLUSTER_ID compose up --build -d
 nsc expose $CLUSTER_ID --all --ingress '*=noauth' -o json > ingress.json
