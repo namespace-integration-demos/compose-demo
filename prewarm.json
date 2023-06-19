@@ -1,0 +1,8 @@
+{
+  "prewarm_container_images": [
+    {
+      "containerd_namespace": "moby",
+      "image_ref": "localstack/localstack"
+    }
+  ]
+}
